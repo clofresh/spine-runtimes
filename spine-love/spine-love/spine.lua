@@ -62,6 +62,7 @@ function spine.BoundingBoxAttachment.new (name)
 	}
 
 	function self:computeWorldVertices (x, y, bone, worldVertices)
+		y = - y
 		x = x + bone.worldX
 		y = y + bone.worldY
 		local m00 = bone.m00
@@ -76,7 +77,7 @@ function spine.BoundingBoxAttachment.new (name)
 
 			-- Changed +py to -py to account for LOVE's inverted y axis
 			worldVertices[i] = px * m00 - py * m01 + x
-			worldVertices[i + 1] = px * m10 - py * m11 + y
+			worldVertices[i + 1] = px * m10 - py * m11 - y
 		end
 	end
 
