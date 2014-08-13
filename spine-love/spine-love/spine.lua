@@ -62,22 +62,21 @@ function spine.BoundingBoxAttachment.new (name)
 	}
 
 	function self:computeWorldVertices (x, y, bone, worldVertices)
-		y = - y
 		x = x + bone.worldX
-		y = y + bone.worldY
+		y = y - bone.worldY
 		local m00 = bone.m00
-		local m01 = bone.m01
-		local m10 = bone.m10
+		local m01 = bone.m10
+		local m10 = bone.m01
 		local m11 = bone.m11
 		local vertices = self.vertices
 		local count = #vertices
 		for i = 1, count, 2 do
 			local px = vertices[i]
-			local py = vertices[i + 1]
+			local py = -vertices[i + 1]
 
 			-- Changed +py to -py to account for LOVE's inverted y axis
-			worldVertices[i] = px * m00 - py * m01 + x
-			worldVertices[i + 1] = px * m10 - py * m11 - y
+			worldVertices[i] = px * m00 + py * m01 + x
+			worldVertices[i + 1] = px * m10 + py * m11 + y
 		end
 	end
 
